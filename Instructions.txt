@@ -1,0 +1,28 @@
+1. create a network (if running in docker) as inshine.
+
+2. start database:
+		docker build -t inshine-database .  							//Build image
+
+		docker run --name inshine-database --network inshine -it inshine-database		//run image	
+		
+3. start backend:
+		docker build -t inshine-backend .							//Build image
+		docker run --name inshine-backend --network inshine -p 8081:8081 inshine-backend	//run image
+		
+4. Start Frontend:
+		docker build -t inshine-frontend .							//Build image
+		docker run --name inshine-front-end --network inshine -dp 3000:3000 inshine-frontend	//run image
+		
+NOTE: you can see we are running our all container in same network so that our container can communicate with each other.
+
+
+ADDITIONAL:
+	To enter in database container:
+		1. docker exec -it inshine-database mysql -p
+		2. Enter password as "root"
+		3. show database;
+		4. use inshine;
+		5. show tables;
+		6. select * from services   (you can see your services since you have added inshineDatabase.sql into container. see in docker file COPY command for reference)
+		
+
